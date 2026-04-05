@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delete:hover {
+            color: darkred;
+        }
+
+        .actions {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .summary-btn {
+            background: #28a745;
+        }
+
+        .summary-btn:hover {
+            background: #1e7e34;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📝 Notes App</h1>
+
+<!-- Add Note -->
+<form method="POST" action="/add">
+    <input type="text" name="note" placeholder="Enter your note..." required>
+    <button type="submit">Add</button>
+</form>
+
+<!-- Notes List -->
+<h2>Your Notes</h2>
+<ul>
+    {% for note in notes %}
+        <li>
+            <span>{{ note['content'] }}</span>
+            <a class="delete" href="/delete/{{ note['id'] }}">❌</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- AI Summary -->
+<div class="actions">
+    <form action="/summarize">
+        <button class="summary-btn" type="submit">🤖 Summarize Notes</button>
+    </form>
+</div>
+
+</body>
+</html>
