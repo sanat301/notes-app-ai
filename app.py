@@ -62,6 +62,14 @@ def summarize():
 
     return f"<h2>Summary:</h2><p>{summary}</p><a href='/'>Back</a>"
 
+@app.route('/delete/<int:id>')
+def delete_note(id):
+    conn = get_db()
+    conn.execute('DELETE FROM notes WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/')
+    
 if __name__ == '__main__':
     init_db()
     app.run(host='0.0.0.0', port=5000)
